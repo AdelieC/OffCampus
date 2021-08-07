@@ -11,6 +11,17 @@ services:
             # "3306" to "3306:3306". Where the first port is exposed to the host and the second is the container port.
             # See https://docs.docker.com/compose/compose-file/#ports for more information.
             - '3306'
+    phpmyadmin:
+        depends_on:
+            -   database
+        image: phpmyadmin
+        restart: always
+        ports:
+            - '8080:80'
+        environment:
+            PMA_HOST: database
+            PMA_USER: root
+            PMA_PASSWORD: password
     mailer:
         image: schickling/mailcatcher
         ports:
