@@ -22,6 +22,12 @@ class OutingImage
      */
     private $name;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Outing::class, inversedBy="outingImage", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $outing;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +41,18 @@ class OutingImage
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getOuting(): ?Outing
+    {
+        return $this->outing;
+    }
+
+    public function setOuting(?Outing $outing): self
+    {
+        $this->outing = $outing;
 
         return $this;
     }
