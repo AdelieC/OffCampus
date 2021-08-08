@@ -16,24 +16,17 @@ class HomeController extends AbstractController
     #[Route('/', name: 'home')]
     public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        //$campusList = $this->getDoctrine()->getRepository(Campus::class)->findAll();
-        $campusList = array(
-                'Nantes',
-                'Niort',
-                'Rennes',
-                'Quimper'
-        );
+        $campusList = $this->getDoctrine()->getRepository(Campus::class)->findAll();
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class,
             $user, ['campus_list' => $campusList]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $form->get('password')->getData()
                 )
             );
             $entityManager = $this->getDoctrine()->getManager();

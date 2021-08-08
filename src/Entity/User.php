@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -25,6 +26,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     *
      */
     private $email;
 
@@ -41,16 +43,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=60)
+     * @Assert\Regex(
+     *     pattern="/[\w\d]{2,60}/",
+     *     message="Votre pseudo doit contenir uniquement entre 2 et 60 caractères alphanumériques."
+     * )
      */
     private $userName;
 
     /**
      * @ORM\Column(type="string", length=60)
+     * @Assert\Regex(
+     *     pattern="/^[A-Za-zÀ-úœ'\-\s]{1,60}+$/",
+     *     message="Entrez un prénom valide."
+     * )
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=80)
+     * @Assert\Regex(
+     *     pattern="/^[A-Za-zÀ-úœ'\-\s]{1,80}+$/",
+     *     message="Entrez un nom valide."
+     * )
      */
     private $lastName;
 
@@ -61,6 +75,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/\+?\(?\d{2,4}\)?[\d\s-]{3,}/",
+     *     message="Entrez un numéro de téléphone valide."
+     * )
      */
     private $telephone;
 
