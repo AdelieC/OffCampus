@@ -2,18 +2,14 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
-
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}OffCampus{% endblock %}</title>
+        {% include 'includes/stylesheets.html.twig' %}
     </head>
     <body>
+        {% include 'includes/header.html.twig' %}
         {% block body %}{% endblock %}
+        {% include 'includes/footer.html.twig' %}
     </body>
 </html>

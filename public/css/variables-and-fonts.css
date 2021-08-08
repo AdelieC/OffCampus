@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;800&family=Roboto:wght@200&display=swap');
+:root {
+    /********Colors*/
+    --bg-color:#B6BABD;
+    --fg-color: #fff;
+    --dark-color: #1D252D;
+    --cta-color: #FF8D00;
+    --action-color: #919295;
+    /********Shadows*/
+    --far-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+    --thumbnails-shadow: 2px 3px 5px rgba(0,0,0,0.2);
+    --btn-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    /********Margins*/
+    --fields-margin: 0.3em 1em;
+    --thumbnails-margin: 1vw;
+    --basic-margin: 2vw;
+    /********Paddings*/
+    --before-header-pdg: 7em;
+    --btn-pdg: 10px;
+    --fields-pdg: 7px;
+    --header-pdg: 1.5em 2em;
+    --frontcard-pdg: 2em;
+    --backcard-pdg: 1em;
+    --textbox-pdg: 0.5em 1em;
+    --form-pdg: 2em;
+    /********Fontsizes*/
+    --nav-fs: 1.3em;
+    --body-fs: 1em;
+    --mini-fs: .8em;
+}

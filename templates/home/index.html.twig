@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue sur OffCampus{% endblock %}
+
+{% block body %}
+<main>
+    <section id="hero">
+        <div id="parallax-bg"></div>
+        <div id="hero-box">
+            <h2 class="fc-fg">Chaque semaine, de nouvelles activités pour réunir les étudiants !</h2>
+            <h3 class="fc-cta">Rejoins-nous maintenant!</h3>
+            <a href="#register" class="btn bg-cta fc-fg">M'inscrire</a>
+        </div>
+    </section>
+    <section id="register" class="bg-fg main-padding">
+        <h2>M'inscrire maintenant</h2>
+        {% include 'includes/register.html.twig' %}
+    </section>
+</main>
+{% endblock %}

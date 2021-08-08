@@ -1,0 +1,16 @@
+{{ form_start(registrationForm) }}
+    <fieldset>
+        {{ form_row(registrationForm.userName) }}
+        {{ form_row(registrationForm.firstName) }}
+        {{ form_row(registrationForm.lastName) }}
+        {{ form_row(registrationForm.password.first) }}
+        {{ form_row(registrationForm.password.second) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.telephone) }}
+        {{ form_row(registrationForm.birthDate) }}
+        {{ form_row(registrationForm.campus) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+
+    <button type="submit" class="btn bg-cta">Créer un compte</button>
+    </fieldset>
+{{ form_end(registrationForm) }}
