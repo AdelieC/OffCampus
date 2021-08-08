@@ -11,18 +11,19 @@
     --thumbnails-shadow: 2px 3px 5px rgba(0,0,0,0.2);
     --btn-shadow: 2px 2px 2px rgba(0,0,0,0.2);
     /********Margins*/
-    --fields-margin: 0.3em 1em;
+    --fields-margin: 0.5em 0 0.5em 1em;
     --thumbnails-margin: 1vw;
-    --basic-margin: 2vw;
+    --basic-margin: 3vw;
     /********Paddings*/
     --before-header-pdg: 7em;
-    --btn-pdg: 10px;
+    --btn-pdg: 1em 1.5em;
     --fields-pdg: 7px;
     --header-pdg: 1.5em 2em;
     --frontcard-pdg: 2em;
     --backcard-pdg: 1em;
     --textbox-pdg: 0.5em 1em;
     --form-pdg: 2em;
+    --modal-pdg: 3vw;
     /********Fontsizes*/
     --nav-fs: 1.3em;
     --body-fs: 1em;

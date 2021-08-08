@@ -65,10 +65,13 @@ h1, h2, h3 {
 .fill-bg {
     fill: var(--bg-color);
 }
-
+.far-shadow {
+    box-shadow: var(--far-shadow);
+}
 /*********** BODY, MAIN***********/
 body {
     background: var(--bg-color);
+    position: relative;
 }
 section.main-padding {
     padding: 5vw 10vw;
@@ -81,6 +84,9 @@ section.main-padding.before-header {
 }
 .margin-top {
     margin-top: var(--basic-margin);
+}
+.padding-modal {
+    padding: var(--modal-pdg);
 }
 /*********** HEADER ***********/
 header {
@@ -124,7 +130,7 @@ header li:not(.btn):hover::before {
 
 div#logo svg {
     display: block;
-    height: 2em;
+    height: 3em;
     width: auto;
 }
 .before-header {
@@ -145,17 +151,15 @@ section#hero {
     width: 100%;
     text-align: center;
 }
-div#hero-box {
+#hero-box {
     height: 100vh;
     width: 100%;
-    padding: 20vw;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
 }
-
-section#hero div#parallax-bg {
+div#hero-background {
     position: fixed;
     top: 0;
     left: 0;
