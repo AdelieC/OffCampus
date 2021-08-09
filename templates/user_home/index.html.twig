@@ -33,7 +33,7 @@
                         <div class="card front">
                             <div class="heading">
                                 <h3>{{ outing.name }}</h3>
-                                <time>{{ outing.dayAndTime }}</time>
+                                <time>{{ outing.dayAndTime | format_datetime('short', 'none', locale='fr') }}</time>
                             </div>
                             <p class="description">{{ outing.description }}</p>
                             <div class="inline-group">
@@ -42,7 +42,7 @@
                             </div>
                             <div class="inline-group">
                                 <div>Clôture des inscriptions :</div>
-                                <time>{{ outing.closingDate }}</time>
+                                <time>{{ outing.closingDate | format_datetime('short', 'none', locale='fr') }}</time>
                             </div>
                             <div class="participation">
                                 {% if app.user in outing.participants %}

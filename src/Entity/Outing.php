@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\OutingRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -179,9 +180,9 @@ class Outing
         return $this;
     }
 
-    public function getDayAndTime(): string
+    public function getDayAndTime(): DateTime
     {
-        return $this->dayAndTime->format('d-m-Y H:i:s');
+        return $this->dayAndTime;
     }
 
     public function setDayAndTime(\DateTimeInterface $dayAndTime): self
@@ -191,9 +192,9 @@ class Outing
         return $this;
     }
 
-    public function getCreationDate(): string
+    public function getCreationDate(): DateTime
     {
-        return $this->creationDate->format('d-m-Y');
+        return $this->creationDate;
     }
 
     public function setCreationDate(\DateTimeInterface $creationDate): self
@@ -203,9 +204,9 @@ class Outing
         return $this;
     }
 
-    public function getClosingDate(): string
+    public function getClosingDate(): DateTime
     {
-        return $this->closingDate->format('d-m-Y');
+        return $this->closingDate;
     }
 
     public function setClosingDate(\DateTimeInterface $closingDate): self
