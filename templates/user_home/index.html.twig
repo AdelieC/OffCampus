@@ -3,75 +3,81 @@
 {% block title %}Accueil OffCampus{% endblock %}
 
 {% block body %}
-<main>
-    <section class="before-header bg-fg">
-        <h2>Filtrer les sorties</h2>
-        {{ form_start(searchForm) }}
-            <fieldset>
-                {{ form_row(searchForm.campus) }}
-                {{ form_row(searchForm.type) }}
-                {{ form_row(searchForm.keyword) }}
-                {{ form_row(searchForm.startDate) }}
-                {{ form_row(searchForm.endDate) }}
-            </fieldset>
-            <fieldset>
-                {{ form_row(searchForm.isOrganiser) }}
-                {{ form_row(searchForm.participates) }}
-                {{ form_row(searchForm.doesntParticipate) }}
-                {{ form_row(searchForm.isFinished) }}
-                <button type="submit" class="btn bg-action margin-top">Rechercher</button>
-            </fieldset>
-        {{ form_end(searchForm) }}
-    </section>
-    <section class="main-padding bg-dark">
-        <h2 class="margin-bottom fc-fg">Les sorties</h2>
-        <div class="thumbnails-container">
-            {% if outingList %}
-            {% for outing in outingList %}
-                <article>
-                    <div class="card-box">
-                        <div class="card front">
-                            <div class="heading">
-                                <h3>{{ outing.name }}</h3>
-                                <time>{{ outing.dayAndTime | format_datetime('short', 'none', locale='fr') }}</time>
-                            </div>
-                            <p class="description">{{ outing.description }}</p>
-                            <div class="inline-group">
-                                <div>Organisée par :</div>
-                                <div><a href="">{{ outing.organiser.userName }}</a></div>
-                            </div>
-                            <div class="inline-group">
-                                <div>Clôture des inscriptions :</div>
-                                <time>{{ outing.closingDate | format_datetime('short', 'none', locale='fr') }}</time>
-                            </div>
-                            <div class="participation">
-                                {% if app.user in outing.participants %}
-                                    <div class="inline-group participates">
-                                        <span></span>
-                                        <p>Participe</p>
-                                    </div>
-                                {% else %}
+    {% set today = date("now") %}
+    <main>
+        <section class="before-header bg-fg">
+            <h2>Filtrer les sorties</h2>
+            {{ form_start(searchForm) }}
+                <fieldset>
+                    {{ form_row(searchForm.campus) }}
+                    {{ form_row(searchForm.type) }}
+                    {{ form_row(searchForm.keyword) }}
+                    {{ form_row(searchForm.startDate) }}
+                    {{ form_row(searchForm.endDate) }}
+                </fieldset>
+                <fieldset>
+                    {{ form_row(searchForm.isOrganiser) }}
+                    {{ form_row(searchForm.participates) }}
+                    {{ form_row(searchForm.doesntParticipate) }}
+                    {{ form_row(searchForm.isFinished) }}
+                    <button type="submit" class="btn bg-action margin-top">Rechercher</button>
+                </fieldset>
+            {{ form_end(searchForm) }}
+        </section>
+        <section class="main-padding bg-dark">
+            <h2 class="margin-bottom fc-fg">Les sorties</h2>
+            <div class="thumbnails-container">
+                {% if outingList %}
+                {% for outing in outingList %}
+                    <article>
+                        <div class="card-box {{ today > outing.closingDate ? 'is-over' : ''}}">
+                            <div class="card front">
+                                <div class="heading">
+                                    <h3>{{ outing.name }}</h3>
+                                    <time>{{ outing.dayAndTime|date('d-m-Y') }}</time>
+                                </div>
+                                <p class="description">{{ outing.description }}</p>
+                                <div class="inline-group">
+                                    <div>Organisée par :</div>
+                                    <div><a href="">{{ outing.organiser.userName }}</a></div>
+                                </div>
+                                {% if today < outing.closingDate %}
+                                    {% set timeLeft = outing.closingDate.diff(today) %}
                                     <div class="inline-group">
-                                        <span></span>
-                                        <p>Pas inscrit</p>
+                                        <div>Jours restants :</div>
+                                        <time>{{ timeLeft.days }}</time>
                                     </div>
-                                {% endif %}
-                                {% if outing.participants | length is same as(outing.capacity) %}
-                                    <strong class="full">Complet</strong>
                                 {% else %}
-                                    <strong>Ouvert</strong>
-                                {% endif %}
+                                    <div>Les inscriptions sont closes.</div>
+                                {% endif%}
+                                <div class="participation">
+                                    {% if app.user in outing.participants %}
+                                        <div class="inline-group participates">
+                                            <span></span>
+                                            <p>Participe</p>
+                                        </div>
+                                    {% else %}
+                                        <div class="inline-group">
+                                            <span></span>
+                                            <p>Pas inscrit</p>
+                                        </div>
+                                    {% endif %}
+                                    {% if outing.participants | length is same as(outing.capacity) %}
+                                        <strong class="full">Complet</strong>
+                                    {% else %}
+                                        <strong>Ouvert</strong>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="card back">
+                                <p class="description">{{ outing.description }}</p>
+                                <a href="view-event.html" class="btn bg-cta fc-fg">Voir plus</a>
                             </div>
                         </div>
-                        <div class="card back">
-                            <p class="description">{{ outing.description }}</p>
-                            <a href="view-event.html" class="btn bg-cta fc-fg">Voir plus</a>
-                        </div>
-                    </div>
-                </article>
-            {% endfor %}
-            {% endif %}
-        </div>
-    </section>
-</main>
+                    </article>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </section>
+    </main>
 {% endblock %}
