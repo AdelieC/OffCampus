@@ -17,6 +17,7 @@ class SearchFormType extends AbstractType
     {
         $builder
             ->add('campus', ChoiceType::class, [
+                'required'   => false,
                 'choices' => $options['campus_list'],
                 'choice_value' => function($campus) {
                     return $campus ? $campus->getId() : '';
@@ -26,6 +27,7 @@ class SearchFormType extends AbstractType
                 }
             ])
             ->add('type', ChoiceType::class, [
+                'required'   => false,
                 'choices' => $options['types_list'],
                 'choice_value' => function($type) {
                     return $type ? $type->getId() : '';
@@ -34,19 +36,29 @@ class SearchFormType extends AbstractType
                     return $type ? $type->getName() : '';
                 }
             ])
-            ->add('keyword', TextType::class)
-            ->add('startDate', DateType::class)
-            ->add('endDate', DateType::class)
+            ->add('keyword', TextType::class, [
+                'required'   => false,
+            ])
+            ->add('startDate', DateType::class, [
+                'required'   => false,
+            ])
+            ->add('endDate', DateType::class, [
+                'required'   => false,
+            ])
             ->add('isOrganiser',CheckboxType::class, [
+                'required'   => false,
                 'label' => "Sorties que j'organise",
             ])
             ->add('participates', CheckboxType::class,[
+                'required'   => false,
                 'label' => "Sorties auxquelles je suis inscrit(e)",
             ])
             ->add('doesntParticipate', CheckboxType::class, [
+                'required'   => false,
                 'label' => "Sorties auxquelles je ne suis pas inscrit(e)",
             ])
             ->add('isFinished', CheckboxType::class, [
+                'required'   => false,
                 'label' => "Sorties passées"
             ])
         ;
