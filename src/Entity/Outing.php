@@ -82,6 +82,11 @@ class Outing
      */
     private $participants;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -174,9 +179,9 @@ class Outing
         return $this;
     }
 
-    public function getDayAndTime(): ?\DateTimeInterface
+    public function getDayAndTime(): string
     {
-        return $this->dayAndTime;
+        return $this->dayAndTime->format('d-m-Y H:i:s');
     }
 
     public function setDayAndTime(\DateTimeInterface $dayAndTime): self
@@ -186,9 +191,9 @@ class Outing
         return $this;
     }
 
-    public function getCreationDate(): ?\DateTimeInterface
+    public function getCreationDate(): string
     {
-        return $this->creationDate;
+        return $this->creationDate->format('d-m-Y');
     }
 
     public function setCreationDate(\DateTimeInterface $creationDate): self
@@ -198,9 +203,9 @@ class Outing
         return $this;
     }
 
-    public function getClosingDate(): ?\DateTimeInterface
+    public function getClosingDate(): string
     {
-        return $this->closingDate;
+        return $this->closingDate->format('d-m-Y');
     }
 
     public function setClosingDate(\DateTimeInterface $closingDate): self
@@ -254,6 +259,18 @@ class Outing
     public function removeParticipant(User $participant): self
     {
         $this->participants->removeElement($participant);
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
