@@ -20,6 +20,7 @@ class UserHomeController extends AbstractController
         $outingList = $this->getDoctrine()->getRepository(Outing::class)->findAll();
         $campusList = $this->getDoctrine()->getRepository(Campus::class)->findAll();
         $typesList = $this->getDoctrine()->getRepository(Type::class)->findAll();
+        $nbOfOutingsFound = -1;
 
         $form = $this->createForm(SearchFormType::class, null, [
             'campus_list' => $campusList,
@@ -30,12 +31,14 @@ class UserHomeController extends AbstractController
         if ($outingList && $form->isSubmitted() && $form->isValid()) {
             $filters = $form->getData();
             $outingList = $this->applyFilters($filters, $outingList);
+            $nbOfOutingsFound = $outingList ? sizeof($outingList) : 0;
         }
 
         return $this->render('user_home/index.html.twig', [
             'controller_name' => 'UserHomeController',
             'searchForm' => $form->createView(),
-            'outingList' => $outingList
+            'outingList' => $outingList,
+            'nbOfOutingsFound' => $nbOfOutingsFound
         ]);
     }
 

@@ -17,6 +17,7 @@ class SearchFormType extends AbstractType
     {
         $builder
             ->add('campus', ChoiceType::class, [
+                'placeholder' => 'Choisis un campus',
                 'required'   => false,
                 'choices' => $options['campus_list'],
                 'choice_value' => function($campus) {
@@ -27,7 +28,9 @@ class SearchFormType extends AbstractType
                 }
             ])
             ->add('type', ChoiceType::class, [
+                'placeholder' => 'Choisis une catégorie',
                 'required'   => false,
+                'label' => 'Type de sortie',
                 'choices' => $options['types_list'],
                 'choice_value' => function($type) {
                     return $type ? $type->getId() : '';
@@ -37,13 +40,21 @@ class SearchFormType extends AbstractType
                 }
             ])
             ->add('keyword', TextType::class, [
+                'label' => 'Mot-clé',
+                'attr' => [
+                    'placeholder' => 'Ex : spectacle...'
+                ],
                 'required'   => false,
             ])
             ->add('startDate', DateType::class, [
+                'label' => 'Entre le',
                 'required'   => false,
+                'widget' => 'single_text'
             ])
             ->add('endDate', DateType::class, [
+                'label' => 'Et le',
                 'required'   => false,
+                'widget' => 'single_text'
             ])
             ->add('isOrganiser',CheckboxType::class, [
                 'required'   => false,
