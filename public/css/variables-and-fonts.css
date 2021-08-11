@@ -14,18 +14,22 @@
     --fields-margin: 0.5em 0 0.5em 1em;
     --thumbnails-margin: 1vw;
     --basic-margin: 3vw;
+    --round-btn-margin: 2em;
     /********Paddings*/
     --before-header-pdg: 7em;
     --btn-pdg: 1em 1.5em;
     --fields-pdg: 7px;
     --header-pdg: 1.5em 2em;
-    --frontcard-pdg: 2em;
-    --backcard-pdg: 1em;
+    --card-pdg: 1em;
     --textbox-pdg: 0.5em 1em;
     --form-pdg: 2em;
     --modal-pdg: 3vw;
+    --round-btn-pdg: 1em;
     /********Fontsizes*/
     --nav-fs: 1.3em;
     --body-fs: 1em;
     --mini-fs: .8em;
+    /********Image sizes*/
+    --round-btn-size: 4em;
+    --ic-size: 2em;
 }

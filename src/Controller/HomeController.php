@@ -16,6 +16,9 @@ class HomeController extends AbstractController
     #[Route('/', name: 'home')]
     public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('user_home');
+        }
         $campusList = $this->getDoctrine()->getRepository(Campus::class)->findAll();
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class,

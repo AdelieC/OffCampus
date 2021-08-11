@@ -8,7 +8,7 @@
         {% include 'includes/stylesheets.html.twig' %}
     </head>
     <body>
-        {% include 'includes/header.html.twig' %}
+        {% block header %}{% include 'includes/header.html.twig' %}{% endblock %}
         {% block body %}{% endblock %}
         {% include 'includes/footer.html.twig' %}
     </body>

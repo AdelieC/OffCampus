@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Accueil OffCampus{% endblock %}
-
 {% block body %}
     {% set today = date("now") %}
     <main>
@@ -23,57 +22,51 @@
                     <button type="submit" class="btn bg-action margin-top">Rechercher</button>
                 </fieldset>
             {{ form_end(searchForm) }}
-            {% if nbOfOutingsFound >= 0 %}
-                {% if nbOfOutingsFound is same as(0) %}
-                    <div>Désolé, nous n'avons trouvé aucune sortie correspondant à ces critères...</div>
-                {% else %}
-                    <div>Nous avons trouvé {{ nbOfOutingsFound }} sortie(s) correspondant à votre recherche!</div>
-                {% endif %}
-            {% endif %}
         </section>
         <section class="main-padding bg-dark">
-            <h2 class="margin-bottom fc-fg">Les sorties</h2>
+            {% if nbOfOutingsFound >= 0 %}
+                {% if nbOfOutingsFound is same as(0) %}
+                    <h2 class="margin-bottom fc-fg">Recherche : aucune sortie correspondante</h2>
+                {% else %}
+                    <h2 class="margin-bottom fc-fg">Recherche : {{ nbOfOutingsFound }} sortie(s) correspondante(s)</h2>
+                {% endif %}
+            {% else %}
+                <h2 class="margin-bottom fc-fg">Les sorties</h2>
+            {% endif %}
             <div class="thumbnails-container">
                 {% if outingList %}
                 {% for outing in outingList %}
                     <article>
                         <div class="card-box {{ today > outing.closingDate ? 'is-over' : ''}}">
                             <div class="card front">
-                                <div class="heading">
-                                    <h3>{{ outing.name }}</h3>
-                                    <time>{{ outing.dayAndTime|date('d-m-Y') }}</time>
+                                <div class="heading" style="background-image: url('{{ asset('img/hero.jpg') }}');">
+                                    <div class="transparent-bg"></div>
+                                    <h3 class="fc-fg">{{ outing.name }}</h3>
+                                    <div class="important">Campus : {{ outing.campus.name }}</div>
                                 </div>
-                                <p class="description">{{ outing.description }}</p>
-                                <div class="inline-group">
-                                    <div>Organisée par :</div>
-                                    <div><a href="">{{ outing.organiser.userName }}</a></div>
-                                </div>
-                                {% if today < outing.closingDate %}
-                                    {% set timeLeft = outing.closingDate.diff(today) %}
-                                    <div class="inline-group">
-                                        <div>Jours restants :</div>
-                                        <time>{{ timeLeft.days }}</time>
+                                <div class="details">
+                                    <div class="important">{{ outing.dayAndTime|date('d-m-Y') }} à {{ outing.dayAndTime|date('H:i') }}</div>
+                                    <div>Organisateur : <a href="">{{ outing.organiser.userName }}</a></div>
+                                    {% if today < outing.closingDate %}
+                                        {% set timeLeft = outing.closingDate.diff(today) %}
+                                        <div>Encore {{ timeLeft.days }} jours pour s'inscrire!</div>
+                                    {% else %}
+                                        <div>Les inscriptions sont closes.</div>
+                                    {% endif%}
+                                    <div class="participation">
+                                        {% if app.user in outing.participants %}
+                                            <p class="participates"><span></span>Participe</p>
+                                        {% else %}
+                                            <p><span></span>Pas inscrit</p>
+                                        {% endif %}
+                                        {% if today > outing.closingDate %}
+                                            <strong class="full">Terminé</strong>
+                                        {% elseif outing.participants | length is same as(outing.capacity) %}
+                                            <strong class="full">Complet</strong>
+                                        {% else %}
+                                            <strong>Ouvert</strong>
+                                        {% endif %}
                                     </div>
-                                {% else %}
-                                    <div>Les inscriptions sont closes.</div>
-                                {% endif%}
-                                <div class="participation">
-                                    {% if app.user in outing.participants %}
-                                        <div class="inline-group participates">
-                                            <span></span>
-                                            <p>Participe</p>
-                                        </div>
-                                    {% else %}
-                                        <div class="inline-group">
-                                            <span></span>
-                                            <p>Pas inscrit</p>
-                                        </div>
-                                    {% endif %}
-                                    {% if outing.participants | length is same as(outing.capacity) %}
-                                        <strong class="full">Complet</strong>
-                                    {% else %}
-                                        <strong>Ouvert</strong>
-                                    {% endif %}
                                 </div>
                             </div>
                             <div class="card back">
@@ -86,5 +79,30 @@
                 {% endif %}
             </div>
         </section>
+        <a href="#" class="btn round bg-cta fill-fg">
+            <svg
+                    version="1.1"
+                    id="Capa_1"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 50.000001 50.000001"
+                    xml:space="preserve"
+                    width="50"
+                    height="50"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:svg="http://www.w3.org/2000/svg"><defs
+                        id="defs863" />
+                <g
+                        id="g828"
+                        transform="scale(0.14645577)">
+                    <g
+                            id="g826">
+                        <polygon
+                                points="149.4,149.4 0,149.4 0,192 149.4,192 149.4,341.4 192,341.4 192,192 341.4,192 341.4,149.4 192,149.4 192,0 149.4,0 "
+                                id="polygon824" />
+                    </g>
+                </g>
+</svg>
+        </a>
     </main>
 {% endblock %}

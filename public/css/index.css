@@ -211,6 +211,19 @@ input, textarea, select {
 .btn:hover {
     transform: scale(1.1);
 }
+.btn.round {
+    height: var(--round-btn-size);
+    width: var(--round-btn-size);
+    padding: var(--round-btn-pdg);
+    border-radius: 50%;
+    position: fixed;
+    bottom: var(--round-btn-margin);
+    right: var(--round-btn-margin);
+}
+.btn.round svg {
+    height: var(--ic-size);
+    width: var(--ic-size);
+}
 /*********** THUMBNAILS CONTAINER ***********/
 .thumbnails-container {
     display: flex;
@@ -233,40 +246,58 @@ input, textarea, select {
     transition: transform 0.8s;
     transform-style: preserve-3d;
 }
+.card-box.is-over {
+    color: rgba(0,0,0,0.5);
+}
 .card {
     position: absolute;
     width: 100%;
     height: 100%;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: stretch;
     -webkit-backface-visibility: hidden; /* Safari */
     backface-visibility: hidden;
     background: var(--fg-color);
 }
-.card.front {
-    padding: var(--frontcard-pdg)
-}
 .card.back {
-    padding: var(--backcard-pdg);
+    padding: var(--card-pdg);
     transform: rotateY(180deg);
 }
 .thumbnails-container article:hover .card-box {
     transform: rotateY(180deg);
 }
-.front p.description {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    font-style: italic;
-    font-weight: 600;
-}
 .thumbnails-container div.heading {
     display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
+    flex-flow: column wrap;
+    justify-content: space-around;
     align-items: center;
+    position: relative;
+    height: 40%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+div.heading h3, div.heading .important, .card.back {
+    z-index: 3;
+}
+div.transparent-bg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.6);
+}
+div.details {
+    padding: var(--card-pdg);
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+    height: 60%;
 }
 .thumbnails-container div.participation {
     display: flex;
@@ -274,16 +305,9 @@ input, textarea, select {
     justify-content: space-between;
     align-items: center;
 }
-i, time {
-    display: block;
-}
-i {
-    font-size: var(--mini-fs);
-    border-radius: 3px;
-    border: 1px solid var(--cta-color);
-    padding: var(--btn-pdg);
-    text-align: center;
-    font-style: normal;
+.important {
+    font-size: 1.2em;
+    font-weight: bold;
     color: var(--cta-color);
 }
 .thumbnails-container span {
