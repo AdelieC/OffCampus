@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une sortie{% endblock %}
+
+{% block body %}
+    <main>
+        <section class="before-header bg-fg">
+            <h1>Créer une sortie</h1>
+            {{ form_start(outingForm) }}
+            <fieldset>
+                {{ form_row(outingForm.name) }}
+                {{ form_row(outingForm.dayAndTime) }}
+                {{ form_row(outingForm.closingDate) }}
+                {{ form_row(outingForm.fare) }}
+                {{ form_row(outingForm.capacity) }}
+                {{ form_row(outingForm.description) }}
+            </fieldset>
+            <fieldset>
+                {{ form_row(outingForm.campus, { 'value': app.user.campus.id }) }}
+                {{ form_row(outingForm.location.city) }}
+                {{ form_row(outingForm.location.zip) }}
+                {{ form_row(outingForm.location.street) }}
+                {{ form_row(outingForm.location.streetNb) }}
+                {{ form_row(outingForm.location.place) }}
+                {{ form_row(outingForm.type.name) }}
+                {{ form_row(outingForm.outingImage) }}
+            </fieldset>
+            {{ form_end(outingForm) }}
+            <div>
+                <button type="submit" class="btn bg-action margin-top">Créer</button>
+            </div>
+        </section>
+    </main>
+{% endblock %}

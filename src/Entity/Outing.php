@@ -31,7 +31,7 @@ class Outing
     private $campus;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Location::class)
+     * @ORM\ManyToOne(targetEntity=Location::class, cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $location;
@@ -43,7 +43,7 @@ class Outing
     private $organiser;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Type::class)
+     * @ORM\ManyToOne(targetEntity=Type::class, cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $type;
@@ -59,6 +59,7 @@ class Outing
     private $dayAndTime;
 
     /**
+     * @Gedmo\Mapping\Annotation\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
     private $creationDate;
@@ -195,13 +196,6 @@ class Outing
     public function getCreationDate(): DateTime
     {
         return $this->creationDate;
-    }
-
-    public function setCreationDate(\DateTimeInterface $creationDate): self
-    {
-        $this->creationDate = $creationDate;
-
-        return $this;
     }
 
     public function getClosingDate(): DateTime

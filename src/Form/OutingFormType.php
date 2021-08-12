@@ -6,6 +6,7 @@ use App\Entity\Outing;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -21,21 +22,29 @@ class OutingFormType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Titre de la sortie',
                 'attr' => [
-                    'placeholder' => 'Choisis un titre',
-                    'pattern' => '[\w\d]{2,100}'
+                    'placeholder' => 'Choisis un titre'
                 ]
             ])
             ->add('dayAndTime', DateTimeType::class, [
-                'label' => 'Date et heure'
+                'label' => 'Date et heure',
+                'time_widget' => 'single_text',
+                'date_widget' => 'single_text'
             ])
-            ->add('closingDate', DateTimeType::class, [
-            'label' => 'Clôture des inscriptions'
+            ->add('closingDate', DateType::class, [
+                'label' => 'Clôture des inscriptions',
+                'widget' => 'single_text'
             ])
             ->add('fare', NumberType::class, [
-                'label' => 'Tarif par personne'
+                'label' => 'Tarif par personne',
+                'attr' => [
+                    'placeholder' => 'Ex : 5'
+                ]
             ])
             ->add('capacity', NumberType::class, [
-                'label' => 'Nombre max de participants'
+                'label' => 'Nombre max de participants',
+                'attr' => [
+                    'placeholder' => 'Ex : 20'
+                ]
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description',
@@ -53,19 +62,7 @@ class OutingFormType extends AbstractType
                 }
             ])
             ->add('location', LocationFormType::class)
-            ->add('type', ChoiceType::class, [
-                'required' => false,
-                'choices' => $options['type_list'],
-                'choice_value' => function($type) {
-                    return $type ? $type->getId() : '';
-                },
-                'choice_label' => function($type) {
-                    return $type ? $type->getName() : '';
-                }
-            ])
-            ->add('type', TypeFormType::class, [
-                'required' => false
-            ])
+            ->add('type', TypeFormType::class)
             ->add('outingImage', FileType::class, [
                 'label' => 'Choisis une image',
                 'multiple' => false,
@@ -76,7 +73,7 @@ class OutingFormType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired(['campus_list', 'type_list']);
+        $resolver->setRequired('campus_list');
         $resolver->setDefaults([
             'data_class' => Outing::class,
         ]);

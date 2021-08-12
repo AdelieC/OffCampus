@@ -39,7 +39,7 @@ class LocationFormType extends AbstractType
                 ]
             ])
             ->add('place',TextType::class, [
-                'label' => "Lieu-Dit ou nom de l'endroit",
+                'label' => "Nom du lieu",
                 'attr' => [
                     'placeholder' => 'Ex : Brasserie des Pommiers'
                 ]

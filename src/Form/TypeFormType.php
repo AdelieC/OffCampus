@@ -14,7 +14,7 @@ class TypeFormType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'OU créer une catégorie',
+                'label' => 'Entre une catégorie',
                 'attr' => [
                     'placeholder' => 'Ex : Randonnée'
                 ]])
