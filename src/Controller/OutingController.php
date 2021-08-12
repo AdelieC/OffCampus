@@ -15,7 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class OutingController extends AbstractController
 {
-    #[Route('/outing/create', name: 'outing')]
+    /**
+     * @Route("/outing/create", name="outing")
+     */
     public function index(Request $request): Response
     {
         $campusList = $this->getDoctrine()->getRepository(Campus::class)->findAll();
@@ -54,6 +56,18 @@ class OutingController extends AbstractController
         return $this->render('outing/index.html.twig', [
             'controller_name' => 'OutingController',
             'outingForm' => $form->createView(),
+        ]);
+    }
+    /**
+     * @Route("/outing/view/{id}", name="view_outing")
+     */
+    public function view(Request $request, int $id): Response
+    {
+        $outing = $this->getDoctrine()->getRepository(Outing::class)->find($id);
+
+        return $this->render('outing/view-outing.html.twig', [
+            'controller_name' => 'OutingController',
+            'outing' => $outing
         ]);
     }
 
