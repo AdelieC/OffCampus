@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ outing.name }}{% endblock %}
+
+{% block body %}
+    <main>
+        <section class="bg-fg main-padding before-header">
+            <h2 class="margin-bottom">Détails de la sortie</h2>
+            <div class="two-cols">
+                <div class="details-container">
+                    <div>
+                        <div>Nom de la sortie :</div>
+                        <div>{{ outing.name }}</div>
+                    </div>
+                    <div>
+                        <div>Date et heure :</div>
+                        <div>{{outing.dayAndTime|date('dd/mm/YYYY')}} à {{outing.dayAndTime|date('H:i')}}</div>
+                    </div>
+                    <div>
+                        <div>Date limite d'inscription :</div>
+                        <div>{{ outing.closingDate|date('dd/mm/YYYY') }}</div>
+                    </div>
+                    <div>
+                        <div>Nombre de places :</div>
+                        <div>{{ outing.capacity }}</div>
+                    </div>
+                </div>
+                <div class="details-container">
+                    <div>
+                        <div>Campus :</div>
+                        <div>{{ outing.campus.name }}</div>
+                    </div>
+                    <div>
+                        <div>Lieu :</div>
+                        <div>{{ outing.location.place }}</div>
+                    </div>
+                    <div>
+                        <div>Rue :</div>
+                        <div>{{ outing.location.streetNb }} {{ outing.location.street }}</div>
+                    </div>
+                    <div>
+                        <div>Code Postal :</div>
+                        <div>{{ outing.locaton.zip }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top">
+                <h2 class="margin-bottom">Description</h2>
+                <div class="description-box">
+                    {{ outing.description }}
+                </div>
+            </div>
+        </section>
+        <section class="main-padding bg-dark">
+            <h2 class="fc-fg">Inscriptions</h2>
+            <div class=two-cols>
+                <table>
+                    <thead class="fc-fg">
+                    <tr>
+                        <th>Campus</th>
+                        <th>Pseudos</th>
+                        <th>Noms</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for participant in participants %}
+                        <tr>
+                            <td>{{ participant.campus.name }}</td>
+                            <td>{{ participant.userName }}</td>
+                            <td>{{ participant.firstName }} {{ participant.lastName }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="center-v-h fc-fg">
+                    <p>Il reste {{ outing.capacity.diff(outing.participants|length) }} places !</p>
+                    <a href="" class="btn bg-cta">M'inscrire à cette sortie</a>
+                </div>
+            </div>
+
+        </section>
+    </main>
+{% endblock %}
