@@ -14,9 +14,10 @@
     --fields-margin: 0.5em 0 0.5em 1em;
     --thumbnails-margin: 1vw;
     --basic-margin: 3vw;
+    --small-margin: 2vw;
     --round-btn-margin: 2em;
     /********Paddings*/
-    --before-header-pdg: 7em;
+    --before-header-pdg: 9em;
     --btn-pdg: 1em 1.5em;
     --fields-pdg: 7px;
     --header-pdg: 1.5em 2em;

@@ -4,14 +4,17 @@
 
 {% block body %}
     <main>
-        <section class="bg-fg main-padding before-header">
+        <section id="outing-hero">
+            <div id="outing-image" style="background-image: url('{{ asset('img/hero.jpg') }}');"></div>
+            <div id="hero-box">
+                <h1 class="fc-fg margin-bottom">{{ outing.name }}</h1>
+                <a href="#" class="btn bg-cta fc-fg margin-top">M'inscrire</a>
+            </div>
+        </section>
+        <section class="bg-fg main-padding">
             <h2 class="margin-bottom">Détails de la sortie</h2>
             <div class="two-cols">
                 <div class="details-container">
-                    <div>
-                        <div>Nom de la sortie :</div>
-                        <div>{{ outing.name }}</div>
-                    </div>
                     <div>
                         <div>Date et heure :</div>
                         <div>{{outing.dayAndTime|date('d/m/Y')}} à {{outing.dayAndTime|date('H:i')}}</div>
@@ -21,8 +24,12 @@
                         <div>{{ outing.closingDate|date('d/m/Y') }}</div>
                     </div>
                     <div>
-                        <div>Nombre de places :</div>
-                        <div>{{ outing.capacity }}</div>
+                        <div>Places restantes :</div>
+                        <div>{{ outing.capacity - outing.participants|length }} / {{ outing.capacity }}</div>
+                    </div>
+                    <div>
+                        <div>Tarif par personne :</div>
+                        <div>{{ outing.fare }} euros</div>
                     </div>
                 </div>
                 <div class="details-container">

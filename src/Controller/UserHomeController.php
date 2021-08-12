@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Campus;
 use App\Entity\Outing;
 use App\Entity\Type;
+use App\Entity\User;
 use App\Form\SearchFormType;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserHomeController extends AbstractController
 {
-    #[Route('/user/home', name: 'user_home')]
+    /**
+     * @Route("/user/home", name="user_home")
+     */
     public function index(Request $request): Response
     {
         $outingList = $this->getDoctrine()->getRepository(Outing::class)->findAll();
@@ -126,5 +129,17 @@ class UserHomeController extends AbstractController
         return array_filter($outingList, function($outing) {
             return $outing->getDayAndTime() < new DateTime();
         });
+    }
+    /**
+     * @Route("/user/view/{id}", name="view_user")
+     */
+    public function view(Request $request, int $id): Response
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+
+        return $this->render('user_home/view-user.html.twig', [
+            'controller_name' => 'UserHomeController',
+            'target_user' => $user
+        ]);
     }
 }
