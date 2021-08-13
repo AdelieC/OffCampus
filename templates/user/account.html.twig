@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app.user.userName }}{% endblock %}
+
+{% block body %}
+    <main>
+        <section class="bg-fg main-padding before-header">
+            <h2 class="margin-bottom">Mon profil</h2>
+            <div class="two-cols">
+                <div class="details-container">
+                    <img src="{{ asset('img/hero.jpg') }}" alt="Profile picture for {{ app.user.userName }}">
+                </div>
+                <div class="details-container">
+                    <div>
+                        <div>Pseudo :</div>
+                        <div>{{ app.user.userName }}</div>
+                    </div>
+                    <div>
+                        <div>Prénom :</div>
+                        <div>{{ app.user.firstName }}</div>
+                    </div>
+                    <div>
+                        <div>Nom :</div>
+                        <div>{{ app.user.lastName }}</div>
+                    </div>
+                    <div>
+                        <div>Campus :</div>
+                        <div>{{ app.user.campus.name }}</div>
+                    </div>
+                    <div>
+                        <div>Email :</div>
+                        <div>{{ app.user.email }}</div>
+                    </div>
+                    <div>
+                        <div>Telephone</div>
+                        <div>{{ app.user.telephone }}</div>
+                    </div>
+                    <div>
+                        <div>Date de naissance</div>
+                        <div>{{ app.user.birthDate|date('d/m/Y') }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-group margin-top">
+                <a href="{{ path('edit_account') }}" class="btn bg-cta fc-fg margin-right">Modifier mon compte</a>
+                <a href="{{ path('edit_account') }}" class="btn bg-dark fc-fg">Supprimer définitivement</a>
+            </div>
+        </section>
+    </main>
+{% endblock %}

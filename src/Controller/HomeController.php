@@ -13,7 +13,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class HomeController extends AbstractController
 {
-    #[Route('/', name: 'home')]
+    /**
+     * @Route("/", name="home")
+     */
     public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         if($this->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -35,13 +37,12 @@ class HomeController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('dashboard');
         }
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
-            'registrationForm' => $form->createView(),
+            'registrationForm' => $form->createView()
         ]);
     }
 }

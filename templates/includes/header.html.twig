@@ -49,8 +49,9 @@
     </div>
     <nav>
         <ul class="fc-fg">
-            <li><a href="">Accueil</a></li>
-            <li class="btn bg-cta"><a href="">Créer une sortie</a></li>
+            <li><a href="{{ path('dashboard') }}">Accueil</a></li>
+            <li><a href="{{ path('account') }}">Mon compte</a></li>
+            <li class="btn bg-cta"><a href="{{ path('create_outing') }}">Créer une sortie</a></li>
             <li class="btn bg-action"><a href="{{ path('app_logout') }}">Déconnexion</a></li>
         </ul>
     </nav>

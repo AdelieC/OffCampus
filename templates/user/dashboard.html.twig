@@ -71,7 +71,7 @@
                             </div>
                             <div class="card back">
                                 <p class="description">{{ outing.description }}</p>
-                                <a href="view-event.html" class="btn bg-cta fc-fg">Voir plus</a>
+                                <a href="{{ path('view_outing', {id: outing.id}) }}" class="btn bg-cta fc-fg">Voir plus</a>
                             </div>
                         </div>
                     </article>

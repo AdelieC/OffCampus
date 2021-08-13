@@ -16,9 +16,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class OutingController extends AbstractController
 {
     /**
-     * @Route("/outing/create", name="outing")
+     * @Route("/outing/create", name="create_outing")
      */
-    public function index(Request $request): Response
+    public function create(Request $request): Response
     {
         $campusList = $this->getDoctrine()->getRepository(Campus::class)->findAll();
         $outing = new Outing();
@@ -50,10 +50,10 @@ class OutingController extends AbstractController
             $entityManager->persist($outing->getOutingImage());
             $entityManager->flush();
 
-            return $this->redirectToRoute('user_home');
+            return $this->redirectToRoute('dashboard');
         }
 
-        return $this->render('outing/index.html.twig', [
+        return $this->render('outing/form.html.twig', [
             'controller_name' => 'OutingController',
             'outingForm' => $form->createView(),
         ]);
@@ -65,7 +65,7 @@ class OutingController extends AbstractController
     {
         $outing = $this->getDoctrine()->getRepository(Outing::class)->find($id);
 
-        return $this->render('outing/view-outing.html.twig', [
+        return $this->render('outing/view.html.twig', [
             'controller_name' => 'OutingController',
             'outing' => $outing
         ]);

@@ -3,13 +3,17 @@
         {{ form_row(registrationForm.userName) }}
         {{ form_row(registrationForm.firstName) }}
         {{ form_row(registrationForm.lastName) }}
-        {{ form_row(registrationForm.password.first) }}
-        {{ form_row(registrationForm.password.second) }}
+        {% if not is_granted('ROLE_USER') %}
+            {{ form_row(registrationForm.password.first) }}
+            {{ form_row(registrationForm.password.second) }}
+        {% endif %}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.telephone) }}
         {{ form_row(registrationForm.birthDate) }}
         {{ form_row(registrationForm.campus) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-    <button type="submit" class="btn bg-cta margin-top">Créer un compte</button>
+        {% if not is_granted('ROLE_USER') %}
+            {{ form_row(registrationForm.agreeTerms) }}
+        {% endif %}
+    <button type="submit" class="btn bg-cta margin-top">{{ is_granted('ROLE_USER') ? 'Modifier' : 'Créer un compte' }}</button>
     </fieldset>
 {{ form_end(registrationForm) }}

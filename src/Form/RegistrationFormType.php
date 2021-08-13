@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 
@@ -20,6 +22,33 @@ class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $user = $event->getData();
+            $form = $event->getForm();
+            if (!$user || null === $user->getId()) {
+                $form->add('password', RepeatedType::class, [
+                    'type' => PasswordType::class,
+                    'invalid_message' => 'Les mots de passe doivent être identiques.',
+                    'required' => true,
+                    'first_options'  => ['label' => 'Mot de passe', 'attr' => [
+                        'pattern' => '(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}'
+                    ]],
+                    'second_options' => ['label' => 'Confirmer', 'attr' => [
+                        'pattern' => '(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}'
+                    ]],
+                    ])
+                    ->add('agreeTerms', CheckboxType::class, [
+                        'label' => "J'ai lu et accepté les conditions d'utilisation",
+                        'mapped' => false,
+                        'constraints' => [
+                            new IsTrue([
+                                'message' => "Oups! Vous avez oublié de cocher la case!",
+                            ]),
+                        ],
+                    ])
+                ;
+            }
+        });
         $builder
             ->add('userName', TextType::class, [
                 'label' => 'Pseudo',
@@ -42,17 +71,6 @@ class RegistrationFormType extends AbstractType
                     'pattern' => "[A-Za-zÀ-úœ'\-\s]{1,60}"
                 ]
             ])
-            ->add('password', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'invalid_message' => 'Les mots de passe doivent être identiques.',
-                'required' => true,
-                'first_options'  => ['label' => 'Mot de passe', 'attr' => [
-                    'pattern' => '(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}'
-                ]],
-                'second_options' => ['label' => 'Confirmer', 'attr' => [
-                    'pattern' => '(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}'
-                ]],
-            ])
             ->add('email', EmailType::class, [
                 'label' => 'E-mail',
                 'attr' => ['placeholder' => 'danny.zuko@gmail.com']
@@ -73,15 +91,6 @@ class RegistrationFormType extends AbstractType
                 'choice_label' => function($campus) {
                     return $campus ? $campus->getName() : '';
                 }
-            ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'label' => "J'ai lu et accepté les conditions d'utilisation",
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => "Oups! Vous avez oublié de cocher la case!",
-                    ]),
-                ],
             ])
         ;
     }

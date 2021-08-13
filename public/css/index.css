@@ -227,6 +227,15 @@ input, textarea, select {
     height: var(--ic-size);
     width: var(--ic-size);
 }
+.btn.margin-right {
+    margin-right: 2em;
+}
+div.btn-group {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+}
 /*********** THUMBNAILS CONTAINER ***********/
 .thumbnails-container {
     display: flex;

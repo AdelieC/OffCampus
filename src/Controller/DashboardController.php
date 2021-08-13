@@ -13,12 +13,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class UserHomeController extends AbstractController
+class DashboardController extends AbstractController
 {
     /**
-     * @Route("/user/home", name="user_home")
+     * @Route("/user/dashboard", name="dashboard")
      */
-    public function index(Request $request): Response
+    public function dashboard(Request $request): Response
     {
         $outingList = $this->getDoctrine()->getRepository(Outing::class)->findAll();
         $campusList = $this->getDoctrine()->getRepository(Campus::class)->findAll();
@@ -37,8 +37,8 @@ class UserHomeController extends AbstractController
             $nbOfOutingsFound = $outingList ? sizeof($outingList) : 0;
         }
 
-        return $this->render('user_home/index.html.twig', [
-            'controller_name' => 'UserHomeController',
+        return $this->render('user/dashboard.html.twig', [
+            'controller_name' => 'DashboardController',
             'searchForm' => $form->createView(),
             'outingList' => $outingList,
             'nbOfOutingsFound' => $nbOfOutingsFound
@@ -129,17 +129,5 @@ class UserHomeController extends AbstractController
         return array_filter($outingList, function($outing) {
             return $outing->getDayAndTime() < new DateTime();
         });
-    }
-    /**
-     * @Route("/user/view/{id}", name="view_user")
-     */
-    public function view(Request $request, int $id): Response
-    {
-        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
-
-        return $this->render('user_home/view-user.html.twig', [
-            'controller_name' => 'UserHomeController',
-            'target_user' => $user
-        ]);
     }
 }
