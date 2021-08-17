@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'image{% endblock %}
+
+{% block body %}
+    <main>
+        <section class="before-header bg-fg">
+            <h1>Modifier l'image</h1>
+            <div class="btn-group">
+                {{ form_start(imageForm) }}
+                <button type="submit" class="btn bg-action margin-top">Modifier</button>
+                {{ form_end(imageForm) }}
+            </div>
+        </section>
+    </main>
+{% endblock %}

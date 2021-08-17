@@ -4,9 +4,11 @@
 {% block header %}{% include 'includes/header.html.twig' %}{% endblock %}
 {% block body %}
     <main>
-        <section id="register" class="bg-fg main-padding before-header">
+        <section class="bg-fg main-padding before-header">
             <h1 class="fc-cta margin-bottom">Modifier mon profil</h1>
-            {% include 'includes/register.html.twig' %}
+            <img src="{{ asset('img/hero.jpg') }}" alt="Profile picture for {{ app.user.userName }}">
+            <a href="{{ path('edit_profile_image') }}" class="btn bg-action fc-fg">Changer la photo</a>
+            {% include 'includes/userForm.html.twig' %}
         </section>
     </main>
 {% endblock %}

@@ -1,34 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer une sortie{% endblock %}
+{% block title %}{{ outing.id ? 'Modifier la' : 'Créer une' }} sortie{% endblock %}
 
 {% block body %}
     <main>
-        <section class="before-header bg-fg">
-            <h1>Créer une sortie</h1>
-            {{ form_start(outingForm) }}
-            <fieldset>
-                {{ form_row(outingForm.name) }}
-                {{ form_row(outingForm.dayAndTime) }}
-                {{ form_row(outingForm.closingDate) }}
-                {{ form_row(outingForm.fare) }}
-                {{ form_row(outingForm.capacity) }}
-                {{ form_row(outingForm.description) }}
-            </fieldset>
-            <fieldset>
-                {{ form_row(outingForm.campus, { 'value': app.user.campus.id }) }}
-                {{ form_row(outingForm.location.city) }}
-                {{ form_row(outingForm.location.zip) }}
-                {{ form_row(outingForm.location.street) }}
-                {{ form_row(outingForm.location.streetNb) }}
-                {{ form_row(outingForm.location.place) }}
-                {{ form_row(outingForm.type.name) }}
+        {% if outing.id %}
+            <section id="outing-hero">
+                <div id="outing-image" style="background-image: url('{{ asset('img/hero.jpg') }}');"></div>
+                <div id="hero-box">
+                    <h1 class="fc-fg margin-bottom">{{ outing.id ? 'Modifier' : 'Créer' }} la sortie</h1>
+                    <a href="{{ path('edit_outing_image', {id: outing.id})}}" class="btn bg-cta fc-fg margin-top">Changer l'image</a>
+                </div>
+            </section>
+            <section class="bg-fg">
+        {% else %}
+            <section class="before-header bg-fg">
+                <h1>Créer une sortie</h1>
+        {% endif %}
+        {{ form_start(outingForm) }}
+        <fieldset>
+            {{ form_row(outingForm.name) }}
+            {{ form_row(outingForm.dayAndTime) }}
+            {{ form_row(outingForm.closingDate) }}
+            {{ form_row(outingForm.fare) }}
+            {{ form_row(outingForm.capacity) }}
+            {{ form_row(outingForm.description) }}
+        </fieldset>
+        <fieldset>
+            {{ form_row(outingForm.campus, { 'value': app.user.campus.id }) }}
+            {{ form_row(outingForm.location.city) }}
+            {{ form_row(outingForm.location.zip) }}
+            {{ form_row(outingForm.location.street) }}
+            {{ form_row(outingForm.location.streetNb) }}
+            {{ form_row(outingForm.location.place) }}
+            {{ form_row(outingForm.type.name) }}
+            {% if not outing.id %}
                 {{ form_row(outingForm.outingImage) }}
-            </fieldset>
-            {{ form_end(outingForm) }}
-            <div class="btn-group">
-                <button type="submit" class="btn bg-action margin-top">Créer</button>
-            </div>
-        </section>
+            {% endif %}
+        </fieldset>
+        <div class="btn-group">
+            <button type="submit" class="btn bg-action margin-top">{{ outing.id ? 'Modifier' : 'Créer' }}</button>
+        </div>
+        {{ form_end(outingForm) }}
+    </section>
     </main>
 {% endblock %}

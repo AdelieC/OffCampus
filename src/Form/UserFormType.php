@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 
-class RegistrationFormType extends AbstractType
+class UserFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -46,6 +46,7 @@ class RegistrationFormType extends AbstractType
                             ]),
                         ],
                     ])
+                    ->add('profileImage', ImageFormType::class)
                 ;
             }
         });
@@ -91,8 +92,7 @@ class RegistrationFormType extends AbstractType
                 'choice_label' => function($campus) {
                     return $campus ? $campus->getName() : '';
                 }
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

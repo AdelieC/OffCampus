@@ -39,7 +39,7 @@
                     <article>
                         <div class="card-box {{ today > outing.closingDate ? 'is-over' : ''}}">
                             <div class="card front">
-                                <div class="heading" style="background-image: url('{{ asset('img/hero.jpg') }}');">
+                                <div class="heading" style="background-image: url('{{ asset('uploads/outings/'~outing.outingImage.name) }}');">
                                     <div class="transparent-bg"></div>
                                     <h3 class="fc-fg">{{ outing.name }}</h3>
                                     <div class="important">Campus : {{ outing.campus.name }}</div>

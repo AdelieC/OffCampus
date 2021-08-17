@@ -23,7 +23,7 @@ class ProfileImage
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="profileImages")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="profileImage", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

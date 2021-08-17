@@ -8,7 +8,7 @@
             <h2 class="margin-bottom">{{ target_user.userName }}</h2>
             <div class="two-cols">
                 <div class="details-container">
-                    <img src="{{ asset('img/hero.jpg') }}" alt="Profile picture for {{ target_user.userName }}">
+                    <img src="{{ asset('uploads/users/'~target_user.profileImage.name) }}" alt="Profile picture for {{ target_user.userName }}">
                 </div>
                 <div class="details-container">
                     <div>

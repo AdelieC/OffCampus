@@ -5,10 +5,14 @@
 {% block body %}
     <main>
         <section id="outing-hero">
-            <div id="outing-image" style="background-image: url('{{ asset('img/hero.jpg') }}');"></div>
+            <div id="outing-image" style="background-image: url('{{ asset('uploads/outings/'~outing.outingImage.name) }}');"></div>
             <div id="hero-box">
                 <h1 class="fc-fg margin-bottom">{{ outing.name }}</h1>
-                <a href="#" class="btn bg-cta fc-fg margin-top">M'inscrire</a>
+                {% if app.user in outing.participants %}
+                    <a href="{{ path('unregister', {id: outing.id}) }}" class="btn bg-action fc-fg margin-top">Me désinscrire</a>
+                {% else %}
+                    <a href="{{ path('register', {id: outing.id}) }}" class="btn bg-cta fc-fg margin-top">M'inscrire</a>
+                {% endif %}
             </div>
         </section>
         <section class="bg-fg main-padding">
@@ -46,8 +50,8 @@
                         <div>{{ outing.location.streetNb }} {{ outing.location.street }}</div>
                     </div>
                     <div>
-                        <div>Code Postal :</div>
-                        <div>{{ outing.location.zip }}</div>
+                        <div>Ville :</div>
+                        <div>{{ outing.location.city }}, {{ outing.location.zip }}</div>
                     </div>
                 </div>
             </div>

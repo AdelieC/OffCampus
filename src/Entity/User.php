@@ -88,6 +88,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $campus;
 
+    /**
+     * @ORM\OneToOne(targetEntity=ProfileImage::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $profileImage;
+
     public function __construct()
     {
     }
@@ -244,6 +249,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCampus(?Campus $campus): self
     {
         $this->campus = $campus;
+
+        return $this;
+    }
+    public function getProfileImage(): ?ProfileImage
+    {
+        return $this->profileImage;
+    }
+    public function setProfileImage(?ProfileImage $profileImage): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($profileImage === null && $this->profileImage !== null) {
+            $this->profileImage->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($profileImage !== null && $profileImage->getUser() !== $this) {
+            $profileImage->setUser($this);
+        }
+
+        $this->profileImage = $profileImage;
 
         return $this;
     }
